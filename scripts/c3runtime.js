@@ -3908,6 +3908,8 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.Sprite.Cnds.PickByUID,
 		C3.Plugins.Arr.Cnds.CompareX,
 		C3.Plugins.Browser.Acts.ConsoleLog,
+		C3.Plugins.AJAX.Acts.SetHeader,
+		C3.Plugins.AJAX.Acts.Post,
 		C3.Plugins.System.Cnds.ForEachOrdered,
 		C3.Plugins.Sprite.Exps.X,
 		C3.Plugins.System.Acts.Wait,
@@ -4149,6 +4151,16 @@ self.C3_ExpressionFuncs = [
 			return () => and("SCORE = ", v0.GetValue());
 		},
 		() => "in",
+		() => "Accept",
+		() => "application/json",
+		() => "Content-Type",
+		() => "sending",
+		() => "https://scbd-backend.herokuapp.com/api/user/1/results",
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (and("{\"game_id\": 4,\"score\":", v0.GetValue()) + "}");
+		},
+		() => "POST",
 		p => {
 			const f0 = p._GetNode(0).GetBoundMethod();
 			return () => (0.125 * f0());
