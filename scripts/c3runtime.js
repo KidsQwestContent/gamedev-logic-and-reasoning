@@ -3856,6 +3856,7 @@ self.C3_GetObjectRefTable = function () {
 		C3.Plugins.System.Cnds.OnLayoutStart,
 		C3.Plugins.Arr.Acts.SetSize,
 		C3.Plugins.System.Acts.SetVar,
+		C3.Plugins.Browser.Exps.QueryParam,
 		C3.Plugins.AJAX.Acts.RequestFile,
 		C3.Plugins.Sprite.Acts.SetSize,
 		C3.Plugins.Sprite.Acts.SetBoolInstanceVar,
@@ -3946,6 +3947,7 @@ self.C3_JsPropNameTable = [
 	{star: 0},
 	{button_next_over: 0},
 	{total_question: 0},
+	{user: 0},
 	{index: 0},
 	{game_state: 0},
 	{score: 0},
@@ -4055,6 +4057,10 @@ function or(l, r)
 self.C3_ExpressionFuncs = [
 		() => 0,
 		() => 1,
+		p => {
+			const f0 = p._GetNode(0).GetBoundMethod();
+			return () => f0("user");
+		},
 		() => "load_question",
 		() => "",
 		() => 0.25,
@@ -4155,7 +4161,10 @@ self.C3_ExpressionFuncs = [
 		() => "application/json",
 		() => "Content-Type",
 		() => "sending",
-		() => "http://ec2-108-136-59-222.ap-southeast-3.compute.amazonaws.com/api/user/1/results",
+		p => {
+			const v0 = p._GetNode(0).GetVar();
+			return () => (("https://bdc-results.kiqs.co/api/user/" + v0.GetValue()) + "/results");
+		},
 		p => {
 			const v0 = p._GetNode(0).GetVar();
 			return () => (and("{\"game_id\": 4,\"score\":", v0.GetValue()) + "}");
